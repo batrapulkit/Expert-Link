@@ -76,10 +76,3 @@ We welcome contributions to **ExpertLink**. If you're interested in helping impr
 3. Create a new branch for your feature or bug fix.
 4. Make your changes, ensuring they follow the style guide.
 5. Submit a pull request with a detailed explanation of your changes.
-
-## Contact
-
-For questions, feedback, or inquiries, reach out to us at:
-
-- Email: support@expertlink.com
-- Website: [www.expertlink.com](http://www.expertlink.com)
