@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@3.6.0/dist/dom-to-image-more.min.js"></script>
+    <title>CareerPath - Discover Your Future</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f8fafc;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header Styles */
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        transition: opacity 0.3s;
+      }
+
+      .nav-links a:hover {
+        opacity: 0.8;
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary {
+        background: #4f46e5;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #4338ca;
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+      }
+
+      .btn-secondary:hover {
+        background: white;
+        color: #667eea;
+      }
+
+      /* Main Content */
+      .main {
+        margin-top: 80px;
+        min-height: calc(100vh - 80px);
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      /* Features Section */
+      .features {
+        padding: 4rem 0;
+        background: white;
+      }
+
+      .features h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #1e293b;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-card {
+        background: #f8fafc;
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: 1px solid #e2e8f0;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        color: #667eea;
+        margin-bottom: 1rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #1e293b;
+      }
+
+      .feature-card p {
+        color: #64748b;
+      }
+
+      /* How It Works Section */
+      .how-it-works {
+        padding: 4rem 0;
+        background: #f8fafc;
+      }
+
+      .how-it-works h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #1e293b;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .step {
+        text-align: center;
+        position: relative;
+      }
+
+      .step-number {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #667eea;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0 auto 1rem;
+      }
+
+      .step h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        color: #1e293b;
+      }
+
+      .step p {
+        color: #64748b;
+      }
+
+      /* Call to Action */
+      .cta {
+        padding: 4rem 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-align: center;
+      }
+
+      .cta h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .cta p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      /* Footer */
+      .footer {
+        background: #1e293b;
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .steps {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+      }
+
+      .modal-content {
+        background-color: white;
+        margin: 5% auto;
+        padding: 2rem;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+      }
+
+      .close:hover {
+        color: #000;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #374151;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .radio-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+      }
+
+      .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .btn-full {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Dashboard Styles */
+      .dashboard-container {
+        min-height: 100vh;
+        background: #f8fafc;
+      }
+
+      .dashboard-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem 0;
+      }
+
+      .user-welcome h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+
+      .user-tagline {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+      }
+
+      .quick-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .stat-card {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      .dashboard-nav {
+        background: white;
+        border-bottom: 1px solid #e2e8f0;
+        position: sticky;
+        top: 80px;
+        z-index: 100;
+      }
+
+      .nav-tabs {
+        display: flex;
+        gap: 0;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .nav-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-tab {
+        padding: 1rem 1.5rem;
+        background: none;
+        border: none;
+        color: #64748b;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-tab:hover {
+        color: #667eea;
+        background: #f8fafc;
+      }
+
+      .nav-tab.active {
+        color: #667eea;
+        border-bottom-color: #667eea;
+        background: #f8fafc;
+      }
+
+      .dashboard-content {
+        padding: 2rem 0;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+      }
+
+      .dashboard-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e2e8f0;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .dashboard-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #e2e8f0;
+        background: #f8fafc;
+      }
+
+      .card-header h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .card-header h3 i {
+        color: #667eea;
+      }
+
+      .card-content {
+        padding: 1.5rem;
+      }
+
+      .progress-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .progress-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .progress-label {
+        font-weight: 500;
+        color: #374151;
+        min-width: 120px;
+      }
+
+      .progress-bar {
+        flex: 1;
+        height: 8px;
+        background: #e2e8f0;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        transition: width 0.3s ease;
+      }
+
+      .progress-value {
+        font-weight: 600;
+        color: #667eea;
+        min-width: 40px;
+        text-align: right;
+      }
+
+      .activity-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .activity-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #667eea;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .activity-title {
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 0.25rem;
+      }
+
+      .activity-time {
+        font-size: 0.875rem;
+        color: #64748b;
+      }
+
+      /* Mentor Section Styles */
+      .mentors-section {
+        padding: 4rem 0;
+        background: white;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #1e293b;
+      }
+
+      .section-header p {
+        font-size: 1.1rem;
+        color: #64748b;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .mentor-search {
+        margin-bottom: 3rem;
+      }
+
+      .search-bar {
+        display: flex;
+        gap: 1rem;
+        max-width: 600px;
+        margin: 0 auto 2rem;
+      }
+
+      .search-bar input {
+        flex: 1;
+        padding: 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      .search-bar input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .filter-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-tab {
+        padding: 0.75rem 1.5rem;
+        background: #f8fafc;
+        border: 2px solid #e2e8f0;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-weight: 500;
+        color: #64748b;
+      }
+
+      .filter-tab:hover,
+      .filter-tab.active {
+        background: #667eea;
+        border-color: #667eea;
+        color: white;
+      }
+
+      .mentors-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .mentor-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e2e8f0;
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-align: center;
+      }
+
+      .mentor-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .mentor-avatar {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1rem;
+      }
+
+      .mentor-avatar img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .mentor-status {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid white;
+      }
+
+      .mentor-status.online {
+        background: #10b981;
+      }
+
+      .mentor-status.busy {
+        background: #f59e0b;
+      }
+
+      .mentor-status.offline {
+        background: #6b7280;
+      }
+
+      .mentor-info h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+      }
+
+      .mentor-title {
+        font-size: 0.9rem;
+        color: #667eea;
+        font-weight: 500;
+        margin-bottom: 0.25rem;
+      }
+
+      .mentor-experience {
+        font-size: 0.875rem;
+        color: #64748b;
+        margin-bottom: 1rem;
+      }
+
+      .mentor-specialties {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .specialty-tag {
+        background: #f1f5f9;
+        color: #475569;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .mentor-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .mentor-stats .stat {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.875rem;
+        color: #64748b;
+      }
+
+      .mentor-stats .stat i {
+        color: #fbbf24;
+      }
+
+      .mentor-actions {
+        margin-top: 1rem;
+      }
+
+      .mentor-cta {
+        text-align: center;
+        padding: 3rem 2rem;
+        background: #f8fafc;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .mentor-cta h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #1e293b;
+      }
+
+      .mentor-cta p {
+        color: #64748b;
+        margin-bottom: 2rem;
+      }
+
+      @media (max-width: 768px) {
+        .search-bar {
+          flex-direction: column;
+        }
+
+        .filter-tabs {
+          justify-content: flex-start;
+          overflow-x: auto;
+          padding-bottom: 1rem;
+        }
+
+        .mentors-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .mentor-stats {
+          flex-direction: column;
+          gap: 0.5rem;
+          align-items: center;
+        }
+      }
+    </style>
+    <script src="/debug-bridge.js"></script>
+
+    <!-- Screenshot capture listener -->
+    <script>
+      window.addEventListener('message', e => {
+        if (e.data === 'capture-webc') {
+          domtoimage.toPng(document.documentElement).then(png => {
+            window.parent.postMessage({ webcScreenshot: png }, '*');
+          });
+        }
+      });
+    </script>
+
+    <!-- Helper script to expose clickable elements & click actions to parent via postMessage -->
+    <script>
+      window.addEventListener('message', e => {
+        // ---------------------- list clickable elements ----------------------
+        if (e.data === 'get-clickables') {
+          const selectors = [
+            'a',
+            'button',
+            '[role="button"]',
+            'input[type="button"]',
+            'input[type="submit"]',
+            '[onclick]',
+            '.clickable',
+            '[class*="btn"]',
+            '[class*="button"]'
+          ];
+
+          const elements = Array.from(document.querySelectorAll(selectors.join(',')));
+          const list = elements.map((el, index) => {
+            const rect = el.getBoundingClientRect();
+            const id = el.id;
+            const classes = Array.from(el.classList).join(' ');
+            const tag = el.tagName.toLowerCase();
+            let selector = '';
+            if (id) selector = '#' + id;
+            else if (classes) selector = tag + '.' + classes.split(' ').join('.');
+            else selector = tag + ':nth-of-type(' + (index + 1) + ')';
+            return {
+              index,
+              tagName: el.tagName.toLowerCase(),
+              text: (el.innerText || el.textContent || '').trim().substring(0, 100),
+              selector,
+              rect: {
+                x: Math.round(rect.left),
+                y: Math.round(rect.top),
+                width: Math.round(rect.width),
+                height: Math.round(rect.height)
+              }
+            };
+          });
+          window.parent.postMessage({ webcClickables: list }, '*');
+        }
+
+        // ---------------------- click element request ----------------------
+        else if (typeof e.data === 'object' && e.data !== null && (e.data.clickElementIndex !== undefined || e.data.clickElementSelector)) {
+          let el = null;
+          const selectors = [
+            'a',
+            'button',
+            '[role="button"]',
+            'input[type="button"]',
+            'input[type="submit"]',
+            '[onclick]',
+            '.clickable',
+            '[class*="btn"]',
+            '[class*="button"]'
+          ];
+
+          if (e.data.clickElementIndex !== undefined) {
+            const elements = Array.from(document.querySelectorAll(selectors.join(',')));
+            el = elements[e.data.clickElementIndex];
+          } else if (e.data.clickElementSelector) {
+            el = document.querySelector(e.data.clickElementSelector);
+          }
+
+          if (el) {
+            el.click();
+            window.parent.postMessage({ webcClickAck: true }, '*');
+          } else {
+            window.parent.postMessage({ webcClickAck: false, error: 'Element not found' }, '*');
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav container">
+        <a href="#" class="logo">
+          <i class="fas fa-compass"></i> CareerPath
+        </a>
+        
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#mentors">Find Mentors</a></li>
+          <li><a href="#resources">Resources</a></li>
+        </ul>
+
+        <div class="auth-buttons">
+          <button class="btn btn-secondary" onclick="openLoginModal()">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </button>
+          <button class="btn btn-primary" onclick="openRegisterModal()">
+            <i class="fas fa-user-plus"></i> Get Started
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="container">
+          <h1>Discover Your Dream Career</h1>
+          <p>Connect with industry professionals, explore career paths, and build the future you've always imagined. Whether you know your goal or need guidance, we're here to help.</p>
+          
+          <div class="hero-buttons">
+            <button class="btn btn-primary" onclick="openRegisterModal()">
+              <i class="fas fa-rocket"></i> Start Your Journey
+            </button>
+            <button class="btn btn-secondary" onclick="scrollToSection('features')">
+              <i class="fas fa-play"></i> Learn More
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="features">
+        <div class="container">
+          <h2>Everything You Need to Succeed</h2>
+          
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-user-friends"></i>
+              </div>
+              <h3>Expert Mentorship</h3>
+              <p>Connect with industry professionals who understand your field and can guide you toward success.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-compass"></i>
+              </div>
+              <h3>Career Discovery</h3>
+              <p>Explore different industries and roles to find the perfect match for your interests and skills.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-briefcase"></i>
+              </div>
+              <h3>Job Opportunities</h3>
+              <p>Access exclusive internships and job listings tailored to your career goals and experience level.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <h3>Learning Resources</h3>
+              <p>Enhance your skills with curated courses, articles, and webinars from industry experts.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-comments"></i>
+              </div>
+              <h3>Community Forums</h3>
+              <p>Join discussions, ask questions, and learn from peers and professionals in your field.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-video"></i>
+              </div>
+              <h3>Virtual Consultations</h3>
+              <p>Schedule one-on-one sessions with mentors and career advisors through our platform.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section id="how-it-works" class="how-it-works">
+        <div class="container">
+          <h2>How CareerPath Works</h2>
+          
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <h3>Create Your Profile</h3>
+              <p>Tell us about your interests, goals, and current situation. We'll tailor your experience accordingly.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">2</div>
+              <h3>Discover & Connect</h3>
+              <p>Explore career paths or get matched with mentors based on your goals and preferences.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">3</div>
+              <h3>Learn & Grow</h3>
+              <p>Access resources, participate in programs, and build valuable connections in your field.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">4</div>
+              <h3>Achieve Your Goals</h3>
+              <p>Land internships, jobs, or simply gain clarity about your career direction with our support.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mentors Section -->
+      <section id="mentors" class="mentors-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Connect with Industry Experts</h2>
+            <p>Find mentors who can guide you toward your career goals and help you navigate your professional journey.</p>
+          </div>
+
+          <!-- Search and Filter -->
+          <div class="mentor-search">
+            <div class="search-bar">
+              <input type="text" id="mentorSearch" placeholder="Search by industry, role, or expertise...">
+              <button class="btn btn-primary">
+                <i class="fas fa-search"></i> Search
+              </button>
+            </div>
+            
+            <div class="filter-tabs">
+              <button class="filter-tab active" data-filter="all">All Mentors</button>
+              <button class="filter-tab" data-filter="technology">Technology</button>
+              <button class="filter-tab" data-filter="healthcare">Healthcare</button>
+              <button class="filter-tab" data-filter="business">Business</button>
+              <button class="filter-tab" data-filter="arts">Arts & Creative</button>
+              <button class="filter-tab" data-filter="finance">Finance</button>
+            </div>
+          </div>
+
+          <!-- Featured Mentors -->
+          <div class="mentors-grid">
+            <div class="mentor-card" data-category="technology">
+              <div class="mentor-avatar">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face" alt="Sarah Chen" />
+                <div class="mentor-status online"></div>
+              </div>
+              <div class="mentor-info">
+                <h3>Sarah Chen</h3>
+                <p class="mentor-title">Senior Software Engineer at Google</p>
+                <p class="mentor-experience">8+ years in AI/ML</p>
+                
+                <div class="mentor-specialties">
+                  <span class="specialty-tag">Machine Learning</span>
+                  <span class="specialty-tag">Python</span>
+                  <span class="specialty-tag">Career Growth</span>
+                </div>
+                
+                <div class="mentor-stats">
+                  <div class="stat">
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (127 reviews)</span>
+                  </div>
+                  <div class="stat">
+                    <i class="fas fa-users"></i>
+                    <span>45 mentees</span>
+                  </div>
+                </div>
+                
+                <div class="mentor-actions">
+                  <button class="btn btn-primary btn-full" onclick="connectWithMentor('sarah-chen')">
+                    <i class="fas fa-comment"></i> Connect
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="mentor-card" data-category="healthcare">
+              <div class="mentor-avatar">
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face" alt="Dr. Michael Rodriguez" />
+                <div class="mentor-status busy"></div>
+              </div>
+              <div class="mentor-info">
+                <h3>Dr. Michael Rodriguez</h3>
+                <p class="mentor-title">Chief Medical Officer at HealthTech Inc</p>
+                <p class="mentor-experience">15+ years in healthcare</p>
+                
+                <div class="mentor-specialties">
+                  <span class="specialty-tag">Medical Career</span>
+                  <span class="specialty-tag">Leadership</span>
+                  <span class="specialty-tag">Healthcare Innovation</span>
+                </div>
+                
+                <div class="mentor-stats">
+                  <div class="stat">
+                    <i class="fas fa-star"></i>
+                    <span>4.8 (89 reviews)</span>
+                  </div>
+                  <div class="stat">
+                    <i class="fas fa-users"></i>
+                    <span>32 mentees</span>
+                  </div>
+                </div>
+                
+                <div class="mentor-actions">
+                  <button class="btn btn-primary btn-full" onclick="connectWithMentor('michael-rodriguez')">
+                    <i class="fas fa-comment"></i> Connect
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="mentor-card" data-category="business">
+              <div class="mentor-avatar">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&crop=face" alt="Emma Thompson" />
+                <div class="mentor-status online"></div>
+              </div>
+              <div class="mentor-info">
+                <h3>Emma Thompson</h3>
+                <p class="mentor-title">VP of Marketing at StartupCorp</p>
+                <p class="mentor-experience">12+ years in marketing</p>
+                
+                <div class="mentor-specialties">
+                  <span class="specialty-tag">Digital Marketing</span>
+                  <span class="specialty-tag">Brand Strategy</span>
+                  <span class="specialty-tag">Startup Growth</span>
+                </div>
+                
+                <div class="mentor-stats">
+                  <div class="stat">
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (156 reviews)</span>
+                  </div>
+                  <div class="stat">
+                    <i class="fas fa-users"></i>
+                    <span>67 mentees</span>
+                  </div>
+                </div>
+                
+                <div class="mentor-actions">
+                  <button class="btn btn-primary btn-full" onclick="connectWithMentor('emma-thompson')">
+                    <i class="fas fa-comment"></i> Connect
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mentor-cta">
+            <h3>Can't find the right mentor?</h3>
+            <p>Browse our full directory of 500+ industry professionals across all fields.</p>
+            <button class="btn btn-primary" onclick="showAllMentors()">
+              <i class="fas fa-search"></i> Browse All Mentors
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Call to Action -->
+      <section class="cta">
+        <div class="container">
+          <h2>Ready to Transform Your Future?</h2>
+          <p>Join thousands of students who have already discovered their dream careers through CareerPath.</p>
+          <button class="btn btn-secondary" onclick="openRegisterModal()">
+            <i class="fas fa-arrow-right"></i> Get Started Today
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2024 CareerPath. Helping students discover their future, one connection at a time.</p>
+      </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('loginModal')">&times;</span>
+        <h2>Welcome Back</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="loginEmail">Email Address</label>
+            <input type="email" id="loginEmail" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" required>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-full">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </button>
+        </form>
+        
+        <p style="text-align: center; margin-top: 1rem;">
+          Don't have an account? 
+          <a href="#" onclick="closeModal('loginModal'); openRegisterModal();" style="color: #667eea;">Sign up here</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('registerModal')">&times;</span>
+        <h2>Start Your Journey</h2>
+        <form id="registerForm">
+          <div class="form-group">
+            <label for="registerName">Full Name</label>
+            <input type="text" id="registerName" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="registerEmail">Email Address</label>
+            <input type="email" id="registerEmail" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="registerPassword">Password</label>
+            <input type="password" id="registerPassword" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="userType">I am a:</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="student" name="userType" value="student" checked>
+                <label for="student">Student</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="professional" name="userType" value="professional">
+                <label for="professional">Industry Professional</label>
+              </div>
+            </div>
+          </div>
+          
+          <div id="careerGoalSection" class="form-group">
+            <label>Do you have a clear career goal?</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="clearGoal" name="careerClarity" value="clear">
+                <label for="clearGoal">Yes, I know what I want</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="uncertainGoal" name="careerClarity" value="uncertain">
+                <label for="uncertainGoal">No, I need guidance</label>
+              </div>
+            </div>
+          </div>
+          
+          <div id="specificGoalSection" class="form-group hidden">
+            <label for="specificGoal">What career are you interested in?</label>
+            <input type="text" id="specificGoal" placeholder="e.g., Software Engineer, Doctor, Teacher">
+          </div>
+          
+          <div id="industryInterestSection" class="form-group hidden">
+            <label for="industryInterest">Which industries interest you?</label>
+            <select id="industryInterest" multiple>
+              <option value="technology">Technology</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="finance">Finance</option>
+              <option value="education">Education</option>
+              <option value="arts">Arts & Creative</option>
+              <option value="business">Business</option>
+              <option value="engineering">Engineering</option>
+              <option value="science">Science & Research</option>
+              <option value="social">Social Services</option>
+              <option value="legal">Legal</option>
+            </select>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-full">
+            <i class="fas fa-user-plus"></i> Create Account
+          </button>
+        </form>
+        
+        <p style="text-align: center; margin-top: 1rem;">
+          Already have an account? 
+          <a href="#" onclick="closeModal('registerModal'); openLoginModal();" style="color: #667eea;">Sign in here</a>
+        </p>
+      </div>
+    </div>
+
+    <script type="module" src="/src/index.js"></script>
+  </body>
+</html>
